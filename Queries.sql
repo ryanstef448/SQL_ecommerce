@@ -1,7 +1,6 @@
 -- Advanced analysis using window functions, CTEs, and Business Logic (MSSQL/T-SQL)
 
--- 1. Revenue trends with running totals and 7-day moving average
--- Demonstrates time-series analysis capabilities
+-- Revenue trends with running totals and 7-day moving average
 SELECT 
     order_timestamp,
     total_amount,
@@ -9,8 +8,7 @@ SELECT
     AVG(total_amount) OVER(ORDER BY order_timestamp ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS moving_avg_7d
 FROM gold.fact_orders;
 
--- 2. Customer segmentation by spend performance
--- Demonstrates RANK and NTILE for customer tiering
+-- Customer segmentation by spend performance
 SELECT 
     customer_name,
     total_revenue,
@@ -18,8 +16,7 @@ SELECT
     NTILE(3) OVER(ORDER BY total_revenue DESC) AS customer_tier -- 1: Top, 2: Mid, 3: Low
 FROM gold.report_customer_activity;
 
--- 3. Category growth and contribution analysis
--- Demonstrates cross-table analysis and percentage calculations
+-- Category growth and contribution analysis
 WITH category_metrics AS (
     SELECT 
         category,
@@ -34,8 +31,8 @@ SELECT
 FROM category_metrics
 ORDER BY total_revenue DESC;
 
--- 4. Audit Trail: Checking processing latency
--- Demonstrates data engineering monitoring capabilities
+-- Audit Trail: Checking processing latency
+
 SELECT TOP 5
     customer_id,
     signup_date,
